@@ -1,14 +1,8 @@
 ﻿body {
     font-family: "Poppins", sans-serif;
     font-size: 20px;
-    background: #aed089;
     color: #3a362b;
     min-height: 100vh;
-}
-
-body .container{
-    margin-top: 10px;
-    font-size: 15px;
 }
 
 #Ingresar {
@@ -19,15 +13,13 @@ body .container{
     margin-top: 15px;
 }
 
-.form-container {
+.custom-box {
     background-color: #84bc48;
     padding: 30px 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     box-shadow: 0px 4px 8px #3a362b;
-    max-width: 400px;
-    width: 100%;
-    margin-left: -200px;
-    margin-bottom: 0px;
+    margin-top: 10px;
+    margin-bottom: 125px;
 }
 
 .image-container {
@@ -35,12 +27,12 @@ body .container{
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
-    margin-right: -200px;
+    margin-right: 250px;
     margin-bottom: 0px;
 }
 
 .image-container img {
-    max-width: 80%;
+    max-width: 80%; 
     height: auto;
     margin-bottom: 15px;
 }
@@ -49,10 +41,11 @@ body .container{
     margin-top: 10px;
     width: 300px;
     height: 275px;
+    margin-right: 250px;
 }
 
 #imagen2 {
-    width: 500px;
-    height: 800px;
+    width: 750px;
+    height: 900px;
+    margin-right: 250px;
 }
-

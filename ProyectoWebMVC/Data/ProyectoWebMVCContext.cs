@@ -14,6 +14,7 @@ namespace ProyectoWebMVC.Data
         {
         }
         public DbSet<ProyectoWebMVC.Models.Usuario> Usuario { get; set; }
+        public DbSet<ProyectoWebMVC.Models.Solicitud> Solicitud { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,15 +31,29 @@ namespace ProyectoWebMVC.Data
                 tb.Property(col => col.Clave).HasMaxLength(25);
             });
 
+            modelBuilder.Entity<Solicitud>(tb => {
+                tb.HasKey(col => col.IdSolicitud);
+                tb.Property(col => col.IdSolicitud)
+                .UseIdentityColumn()
+                .ValueGeneratedOnAdd();
+
+                tb.Property(col => col.Nombre).HasMaxLength(50);
+                tb.Property(col => col.Cedula).HasMaxLength(10);
+                tb.Property(col => col.Edad).HasColumnType("int");
+                tb.Property(col => col.LugarResidencia).HasMaxLength(100);
+                tb.Property(col => col.Ingresos).HasColumnType("int");
+                tb.Property(col => col.AmbienteFamiliar).HasMaxLength(200);
+                tb.Property(col => col.Fecha).HasColumnType("DateTime");
+            });
+
             modelBuilder.Entity<Usuario>().ToTable("Usuarios");
+            modelBuilder.Entity<Solicitud>().ToTable("Solicitudes");
         }
 
         public Usuario ValidarUsuario(string _correo, string _clave)
         {
             return Usuario.Where(u => u.Correo == _correo && u.Clave == _clave).FirstOrDefault();
         }
-
-
 
     }
 }

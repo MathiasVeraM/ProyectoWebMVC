@@ -1,14 +1,76 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "EnviarSolicitudAdopcion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <div class="alert alert-dark">
-        <h2 class="display-2">
-            Esta es la pagina para enviar una solicitud de adopcion
-        </h2>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Iniciar Sesion</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/EstilosEnviarSolicitud.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="row mt-5">
+        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <div class="image-container text-center mb-4" style="margin-right: -200px">
+                <img class="u-image u-image-contain u-image-default" src="~/images/logotipoPAE.png" alt="Logotipo" style="max-width: 80%; height: auto;" id="imagen1">
+                <img class="u-image u-image-contain u-image-default" src="~/images/ImagenSolicitudAdopcion.png" alt="Perrillos" style="max-width: 80%; height: auto;" id="imagen2">
+            </div>
+        </div>
+        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <div class="custom-box">
+                <div class="form-container">
+                    <p class="h1 text-center">Solicitar Adopcion</p>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="form-label">Nombres Completos</label>
+                            <input type="text" class="form-control" id="exampleInputNombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Cedula de Identidad</label>
+                            <input type="text" class="form-control" id="exampleInputCedula" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="form-label">Edad</label>
+                            <input type="number" class="form-control" id="exampleInputEdad" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Lugar de Residencia</label>
+                            <input type="text" class="form-control" id="exampleInputLugarResidencia" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="form-label">Ingresos Económicos</label>
+                            <input type="number" class="form-control" id="exampleInputIngresos" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Describa su Ambiente Familiar</label>
+                            <input type="text" class="form-control" id="exampleInputAmbienteFamiliar" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="form-label">Fecha y Hora actuales</label>
+                            <input type="datetime-local" class="form-control" id="exampleInputFechaHora" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="Ingresar">Ingresar</button>
+                        @if (ViewData["Mensaje"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["Mensaje"]
+                            </div>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
 

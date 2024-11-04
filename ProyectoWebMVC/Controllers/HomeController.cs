@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using ProyectoWebMVC.Data;
 
 namespace ProyectoWebMVC.Controllers
 {
@@ -13,9 +14,16 @@ namespace ProyectoWebMVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        private readonly ProyectoWebMVCContext _proyectoWebMVCContext;
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+
+        public HomeController(ProyectoWebMVCContext proyectoWebMVCContext)
+        {
+            _proyectoWebMVCContext = proyectoWebMVCContext;
         }
 
         public IActionResult Index()
@@ -23,9 +31,43 @@ namespace ProyectoWebMVC.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult EnviarSolicitudAdopcion()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EnviarSolicitudAdopcion(Solicitud modelo)
+        {
+            if(modelo == null)
+            {
+                ViewData["Mensaje"] = "No se pudo enviar la solicitud";
+            }
+
+            Solicitud solicitud = new Solicitud()
+            {
+                Nombre = modelo.Nombre,
+                Cedula = modelo.Cedula,
+                Edad = modelo.Edad,
+                LugarResidencia = modelo.LugarResidencia,
+                Ingresos = modelo.Ingresos,
+                AmbienteFamiliar = modelo.AmbienteFamiliar,
+                Fecha = modelo.Fecha
+            };
+
+            await _proyectoWebMVCContext.AddAsync(solicitud);
+            await _proyectoWebMVCContext.SaveChangesAsync();
+
+            if (solicitud.IdSolicitud != 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewData["Mensaje"] = "No se pudo crear el usuario";
+                return View();
+            }
         }
 
         [Authorize(Policy = "OnlySpecificUser")]
