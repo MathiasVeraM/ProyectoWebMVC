@@ -67,6 +67,9 @@ namespace ProyectoWebMVC.Controllers
             }
         }
 
+        
+
+
         [Authorize(Policy = "OnlySpecificUser")]
         public async Task<IActionResult> EvaluarSolicitudAdopcion()
         {
@@ -79,7 +82,43 @@ namespace ProyectoWebMVC.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> Publicar(Publicacion publicacion, IFormFile foto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (foto != null && foto.Length > 0)
+                {
+                    var fileName = Path.GetFileName(foto.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidad", fileName);
 
+                    
+                    if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas")))
+                    {
+                        Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas"));
+                    }
+
+                    
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await foto.CopyToAsync(stream);
+                    }
+
+                    
+                    publicacion.Foto = fileName;
+                }
+
+                
+                _proyectoWebMVCContext.Publicaciones.Add(publicacion);
+                await _proyectoWebMVCContext.SaveChangesAsync();
+
+                
+                return RedirectToAction("Index");
+            }
+
+           
+            return View(publicacion);
+        }
         public IActionResult Privacy()
         {
             return View();

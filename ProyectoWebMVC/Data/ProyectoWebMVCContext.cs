@@ -15,6 +15,8 @@ namespace ProyectoWebMVC.Data
         }
         public DbSet<ProyectoWebMVC.Models.Usuario> Usuario { get; set; }
         public DbSet<ProyectoWebMVC.Models.Solicitud> Solicitudes { get; set; }
+        public DbSet<Publicacion> Publicaciones { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

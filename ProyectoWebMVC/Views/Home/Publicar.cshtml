@@ -11,6 +11,70 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
-<h1>Publicar</h1>
-<p>Esta es la vista para realizar una nueva publicacion</p>
+<body>
+    <div class="row mt-5">
+        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <div class="image-container text-center mb-4" style="margin-right: -200px">
+                <img class="u-image u-image-contain u-image-default" src="~/images/logotipoPAE.png" alt="Logotipo" style="max-width: 80%; height: auto;" id="imagen1">
+                <img class="u-image u-image-contain u-image-default" src="~/images/ImagenPublicar.png" alt="Perrillos" style="max-width: 80%; height: auto;" id="imagen2">
+            </div>
+        </div>
+        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <div class="custom-box">
+                <div class="form-container">
+                    <p class="h1 text-center">Publicar Información de Adopción</p>
+                    <form asp-controller="Publicaciones" asp-action="Create" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="Raza" class="form-label">Raza</label>
+                            <input type="text" class="form-control" id="Raza" required asp-for="Raza" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Sexo">Sexo</label>
+                            <input type="text" class="form-control" id="Sexo" required asp-for="Sexo" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Edad" class="form-label">Edad</label>
+                            <input type="number" class="form-control" id="Edad" required asp-for="Edad" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Peso">Peso</label>
+                            <input type="number" class="form-control" id="Peso" required asp-for="Peso" step="0.01" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Foto" class="form-label">Foto</label>
+                            <input type="file" class="form-control" id="Foto" required asp-for="Foto" accept="image/*" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Tamaño">Tamaño</label>
+                            <input type="text" class="form-control" id="Tamaño" required asp-for="Tamaño" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Esterilizacion">Esterilización</label>
+                            <input type="checkbox" asp-for="Esterilizacion" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Enfermedades" class="form-label">Enfermedades</label>
+                            <textarea class="form-control" id="Enfermedades" required asp-for="Enfermedades"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="DescripcionComportamiento" class="form-label">Descripción de Comportamiento</label>
+                            <textarea class="form-control" id="DescripcionComportamiento" required asp-for="Comportamiento"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="Publicar">Publicar</button>
+                        @if (ViewData["Mensaje"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["Mensaje"]
+                            </div>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
 
