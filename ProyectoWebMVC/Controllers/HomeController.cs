@@ -28,10 +28,13 @@ namespace ProyectoWebMVC.Controllers
             return View();
         }
 
+        [Authorize(Policy = "OnlySpecificUser")]
         public IActionResult EvaluarSolicitudAdopcion()
         {
             return View();
         }
+
+        [Authorize(Policy = "OnlySpecificUser")]
         public IActionResult SubirPublicacion()
         {
             return View();
@@ -41,8 +44,6 @@ namespace ProyectoWebMVC.Controllers
         {
             return View();
         }
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

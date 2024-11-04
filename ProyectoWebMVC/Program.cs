@@ -4,6 +4,8 @@ using ProyectoWebMVC.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Build.Framework;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 {
     options.LoginPath = "/Acceso/Login";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
+});
+
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("OnlySpecificUser", policy => policy.RequireClaim(ClaimTypes.Email, "admin@prueba.com"));
 });
 
 // Add services to the container.

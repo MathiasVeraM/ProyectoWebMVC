@@ -73,8 +73,9 @@ namespace ProyectoWebMVC.Controllers
 
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Email, usuario_encontrado.Correo)
+                new Claim(ClaimTypes.Email, usuario_encontrado.Correo),
             };
+
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             AuthenticationProperties properties = new AuthenticationProperties()
