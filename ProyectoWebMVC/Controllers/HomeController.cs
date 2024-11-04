@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using ProyectoWebMVC.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProyectoWebMVC.Controllers
 {
@@ -67,9 +68,10 @@ namespace ProyectoWebMVC.Controllers
         }
 
         [Authorize(Policy = "OnlySpecificUser")]
-        public IActionResult EvaluarSolicitudAdopcion()
+        public async Task<IActionResult> EvaluarSolicitudAdopcion()
         {
-            return View();
+            var solicitudes = await _proyectoWebMVCContext.Solicitud.ToListAsync();
+            return View(solicitudes);
         }
 
         [Authorize(Policy = "OnlySpecificUser")]

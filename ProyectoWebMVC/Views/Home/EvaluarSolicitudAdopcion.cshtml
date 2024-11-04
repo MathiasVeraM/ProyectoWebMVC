@@ -1,14 +1,65 @@
-﻿
+﻿@model IEnumerable<ProyectoWebMVC.Models.Solicitud>
+
 @{
     ViewData["Title"] = "EvaluarSolicitudAdopcion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <div class="alert alert-dark">
-        <h2 class="display-2">
-            Esta es la pagina para evaluar las solicitudes de adopcion
-        </h2>
-    </div>
-</div>
+<h1>Solicitudes enviadas</h1>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cedula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LugarResidencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ingresos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AmbienteFamiliar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Cedula)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Edad)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.LugarResidencia)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Ingresos)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.AmbienteFamiliar)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
