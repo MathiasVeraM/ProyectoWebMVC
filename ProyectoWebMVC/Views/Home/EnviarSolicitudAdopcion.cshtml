@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ProyectoWebMVC.Models.Solicitud;
+
+@{
     ViewData["Title"] = "EnviarSolicitudAdopcion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -27,34 +29,34 @@
             <div class="custom-box">
                 <div class="form-container">
                     <p class="h1 text-center">Solicitar Adopcion</p>
-                    <form>
+                    <form asp-area="" asp-controller="Home" asp-action="EnviarSolicitudAdopcion" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="form-label">Nombres Completos</label>
-                            <input type="text" class="form-control" id="exampleInputNombre" required>
+                            <input type="text" class="form-control" id="exampleInputNombre" required asp-for="Nombre">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Cedula de Identidad</label>
-                            <input type="text" class="form-control" id="exampleInputCedula" required>
+                            <input type="text" class="form-control" id="exampleInputCedula" required asp-for="Cedula">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="form-label">Edad</label>
-                            <input type="number" class="form-control" id="exampleInputEdad" required>
+                            <input type="number" class="form-control" id="exampleInputEdad" required asp-for="Edad">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Lugar de Residencia</label>
-                            <input type="text" class="form-control" id="exampleInputLugarResidencia" required>
+                            <input type="text" class="form-control" id="exampleInputLugarResidencia" required asp-for="LugarResidencia">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="form-label">Ingresos Económicos</label>
-                            <input type="number" class="form-control" id="exampleInputIngresos" required>
+                            <input type="number" class="form-control" id="exampleInputIngresos" required asp-for="Ingresos">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Describa su Ambiente Familiar</label>
-                            <input type="text" class="form-control" id="exampleInputAmbienteFamiliar" required>
+                            <input type="text" class="form-control" id="exampleInputAmbienteFamiliar" required asp-for="AmbienteFamiliar">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="form-label">Fecha y Hora actuales</label>
-                            <input type="datetime-local" class="form-control" id="exampleInputFechaHora" required>
+                            <input type="datetime-local" class="form-control" id="exampleInputFechaHora" required asp-for="Fecha">
                         </div>
                         <button type="submit" class="btn btn-primary" id="Ingresar">Ingresar</button>
                         @if (ViewData["Mensaje"] != null)

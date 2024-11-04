@@ -65,7 +65,7 @@ namespace ProyectoWebMVC.Controllers
             }
             else
             {
-                ViewData["Mensaje"] = "No se pudo crear el usuario";
+                ViewData["Mensaje"] = "No se pudo enviar la solicitud";
                 return View();
             }
         }
