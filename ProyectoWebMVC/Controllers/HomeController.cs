@@ -70,7 +70,7 @@ namespace ProyectoWebMVC.Controllers
         [Authorize(Policy = "OnlySpecificUser")]
         public async Task<IActionResult> EvaluarSolicitudAdopcion()
         {
-            var solicitudes = await _proyectoWebMVCContext.Solicitud.ToListAsync();
+            var solicitudes = await _proyectoWebMVCContext.Solicitudes.ToListAsync();
             return View(solicitudes);
         }
 
