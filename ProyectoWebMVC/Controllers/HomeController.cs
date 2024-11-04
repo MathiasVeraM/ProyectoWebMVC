@@ -16,13 +16,9 @@ namespace ProyectoWebMVC.Controllers
 
         private readonly ProyectoWebMVCContext _proyectoWebMVCContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ProyectoWebMVCContext proyectoWebMVCContext)
         {
             _logger = logger;
-        }
-
-        public HomeController(ProyectoWebMVCContext proyectoWebMVCContext)
-        {
             _proyectoWebMVCContext = proyectoWebMVCContext;
         }
 
