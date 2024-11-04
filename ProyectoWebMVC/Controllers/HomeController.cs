@@ -66,7 +66,6 @@ namespace ProyectoWebMVC.Controllers
                 return View();
             }
         }
-
         
 
 
@@ -77,7 +76,7 @@ namespace ProyectoWebMVC.Controllers
             return View(solicitudes);
         }
 
-        [Authorize(Policy = "OnlySpecificUser")]
+        
         public IActionResult Publicar()
         {
             return View();
@@ -90,35 +89,36 @@ namespace ProyectoWebMVC.Controllers
                 if (foto != null && foto.Length > 0)
                 {
                     var fileName = Path.GetFileName(foto.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidad", fileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas", fileName);
 
-                    
+
                     if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas")))
                     {
                         Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas"));
                     }
 
-                    
+
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await foto.CopyToAsync(stream);
                     }
 
-                    
+
                     publicacion.Foto = fileName;
                 }
 
-                
+
                 _proyectoWebMVCContext.Publicaciones.Add(publicacion);
                 await _proyectoWebMVCContext.SaveChangesAsync();
 
-                
+
                 return RedirectToAction("Index");
             }
 
-           
+
             return View(publicacion);
         }
+
         public IActionResult Privacy()
         {
             return View();

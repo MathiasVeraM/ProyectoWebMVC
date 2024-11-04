@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ProyectoWebMVC.Models.Publicacion
+
+@{
     ViewData["Title"] = "Publicar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -22,7 +24,7 @@
         <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
             <div class="custom-box">
                 <div class="form-container">
-                    <p class="h1 text-center">Publicar Información de Adopción</p>
+                    <p class="h1 text-center">Crear Publicacion</p>
                     <form asp-controller="Publicaciones" asp-action="Create" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="Raza" class="form-label">Raza</label>
