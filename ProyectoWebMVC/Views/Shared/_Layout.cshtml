@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
@@ -33,16 +35,22 @@
                                 <i class="fas fa-paper-plane icono"></i>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="EvaluarSolicitudAdopcion" title="Evaluar Solicitudes">
-                                <i class="fas fa-check-circle icono"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="SubirPublicacion" title="Publicar">
-                                <i class="fas fa-upload icono"></i>
-                            </a>
-                        </li>
+                        @if(User.HasClaim(ClaimTypes.Email, "admin@prueba.com"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="EvaluarSolicitudAdopcion" title="Evaluar Solicitudes">
+                                    <i class="fas fa-check-circle icono"></i>
+                                </a>
+                            </li>
+                        }
+                        @if (User.HasClaim(ClaimTypes.Email, "admin@prueba.com"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="SubirPublicacion" title="Publicar">
+                                    <i class="fas fa-upload icono"></i>
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy" title="Sobre Nosotros">
                                 <i class="fas fa-book icono"></i>
