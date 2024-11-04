@@ -35,7 +35,7 @@ namespace ProyectoWebMVC.Controllers
         }
 
         [Authorize(Policy = "OnlySpecificUser")]
-        public IActionResult SubirPublicacion()
+        public IActionResult Publicar()
         {
             return View();
         }

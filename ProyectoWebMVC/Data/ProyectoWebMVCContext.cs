@@ -37,5 +37,8 @@ namespace ProyectoWebMVC.Data
         {
             return Usuario.Where(u => u.Correo == _correo && u.Clave == _clave).FirstOrDefault();
         }
+
+
+
     }
 }
