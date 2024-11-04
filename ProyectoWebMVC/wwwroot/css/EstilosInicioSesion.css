@@ -1,0 +1,58 @@
+﻿body {
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    background: #aed089;
+    color: #3a362b;
+    min-height: 100vh;
+}
+
+body .container{
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+#Ingresar {
+    background: #374e1d;
+    color: white;
+    border-color: #374e1d;
+    font-family: "Poppins", sans-serif;
+    margin-top: 15px;
+}
+
+.form-container {
+    background-color: #84bc48;
+    padding: 30px 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px #3a362b;
+    max-width: 400px;
+    width: 100%;
+    margin-left: -200px;
+    margin-bottom: 0px;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column; /* Asegura que las imágenes estén apiladas verticalmente */
+    align-items: center; /* Centra horizontalmente las imágenes */
+    margin-top: 20px;
+    margin-right: -200px;
+    margin-bottom: 0px;
+}
+
+.image-container img {
+    max-width: 80%; /* Mantiene las imágenes dentro de un tamaño razonable */
+    height: auto; /* Mantiene la proporción de las imágenes */
+    margin-bottom: 15px; /* Espacio entre las imágenes */
+}
+
+#imagen1 {
+    margin-top: 10px;
+    width: 300px;
+    height: 275px;
+}
+
+#imagen2 {
+    width: 500px;
+    height: 800px;
+}
+

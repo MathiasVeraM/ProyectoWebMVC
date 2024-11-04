@@ -1,0 +1,31 @@
+﻿body {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    background: white;
+    color: #3a362b;
+    min-height: 100vh;
+}
+
+.color-zone {
+    background-color: #aed089;
+
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column; /* Asegura que las imágenes estén apiladas verticalmente */
+    align-items: center; /* Centra horizontalmente las imágenes */
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#imagen1 {
+    margin-top: auto;
+    margin-right: auto;
+    width: 250px;
+    height: 80px;
+}
+
+.form-control{
+    margin-top: -500px;
+}
