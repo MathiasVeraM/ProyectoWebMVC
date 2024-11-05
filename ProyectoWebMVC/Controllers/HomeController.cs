@@ -76,47 +76,60 @@ namespace ProyectoWebMVC.Controllers
             return View(solicitudes);
         }
 
-        
+        [Authorize(Policy = "OnlySpecificUser")]
+        [HttpGet]
         public IActionResult Publicar()
         {
             return View();
         }
+
+        [Authorize(Policy = "OnlySpecificUser")]
         [HttpPost]
-        public async Task<IActionResult> Publicar(Publicacion publicacion, IFormFile foto)
+        public async Task<IActionResult> Publicar(Publicacion modelo)
         {
-            if (ModelState.IsValid)
+            Publicacion publicacion = new Publicacion
             {
-                if (foto != null && foto.Length > 0)
+                Raza = modelo.Raza,
+                Sexo = modelo.Sexo,
+                Edad = modelo.Edad,
+                Peso = modelo.Peso,
+                Tamaño = modelo.Tamaño,
+                Esterilizacion = modelo.Esterilizacion,
+                Enfermedades = modelo.Enfermedades,
+                Comportamiento = modelo.Comportamiento
+            };
+
+            if (modelo.FotoArchivo != null && modelo.FotoArchivo.Length > 0)
+            {
+                var fileName = Path.GetFileName(modelo.FotoArchivo.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas", fileName);
+
+                if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas")))
                 {
-                    var fileName = Path.GetFileName(foto.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas", fileName);
-
-
-                    if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas")))
-                    {
-                        Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas"));
-                    }
-
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await foto.CopyToAsync(stream);
-                    }
-
-
-                    publicacion.Foto = fileName;
+                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas"));
                 }
 
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await modelo.FotoArchivo.CopyToAsync(stream);
+                }
 
-                _proyectoWebMVCContext.Publicaciones.Add(publicacion);
-                await _proyectoWebMVCContext.SaveChangesAsync();
-
-
-                return RedirectToAction("Index");
+                // Solo guardamos el nombre del archivo en la base de datos
+                publicacion.Foto = fileName;
             }
 
+            await _proyectoWebMVCContext.AddAsync(publicacion);
+            await _proyectoWebMVCContext.SaveChangesAsync();
 
-            return View(publicacion);
+            if (publicacion.Id != 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewData["Mensaje"] = "No se pudo enviar la solicitud";
+                return View();
+            }
         }
 
         public IActionResult Privacy()

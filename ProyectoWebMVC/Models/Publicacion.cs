@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoWebMVC.Models
 {
@@ -14,8 +15,11 @@ namespace ProyectoWebMVC.Models
         public int Edad { get; set; }
 
         public double Peso { get; set; }
+
+        public string Foto { get; set; }
  
-        public required string Foto { get; set; }
+        [NotMapped]
+        public IFormFile FotoArchivo { get; set; }
 
         public required string Tamaño { get; set; }
 
