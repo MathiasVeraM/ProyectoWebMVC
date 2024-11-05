@@ -1,15 +1,59 @@
-﻿@using System.Security.Claims;
+﻿@model IEnumerable<ProyectoWebMVC.Models.Publicacion>
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Authentication.Cookies;
+@using Microsoft.AspNetCore.Authentication;
+
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Publicaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    @if (User.Identity.IsAuthenticated)
-    {
-        <h1 class="display-4">Bienvenido
-            @User.Claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).SingleOrDefault()
-        </h1>
-    }
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Publicaciones</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/EstilosHome.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+@if (User.Identity.IsAuthenticated)
+{
+    <h1 class="display-4">
+        Bienvenido
+        @User.Claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).SingleOrDefault()
+    </h1>
+}
+<h2>Publicaciones</h2>
+
+<body>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            @foreach (var publicacion in Model)
+            {
+                <div class="col-md-5 col-lg-4 mb-4">
+                    <div class="card instagram-post">
+                        <img src="@Url.Content("~/Subidas/" + publicacion.Foto)" class="card-img-top post-image" alt="Imagen de publicación">
+                    <div class="card-body post-info">
+                        <h5 class="card-title">@publicacion.Raza</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Sexo:</strong> @publicacion.Sexo</li>
+                            <li class="list-group-item"><strong>Edad:</strong> @publicacion.Edad</li>
+                            <li class="list-group-item"><strong>Peso:</strong> @publicacion.Peso</li>
+                            <li class="list-group-item"><strong>Tamaño:</strong> @publicacion.Tamaño</li>
+                            <li class="list-group-item"><strong>Esterilización:</strong> @publicacion.Esterilizacion</li>
+                            <li class="list-group-item"><strong>Enfermedades:</strong> @publicacion.Enfermedades</li>
+                            <li class="list-group-item"><strong>Comportamiento:</strong> @publicacion.Comportamiento</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+         </div>
+     </div>
+
     
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+

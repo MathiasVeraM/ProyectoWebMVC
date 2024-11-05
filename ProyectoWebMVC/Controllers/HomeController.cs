@@ -23,10 +23,12 @@ namespace ProyectoWebMVC.Controllers
             _proyectoWebMVCContext = proyectoWebMVCContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var publicaciones = await _proyectoWebMVCContext.Publicaciones.ToListAsync();
+            return View(publicaciones);
         }
+
 
         [HttpGet]
         public IActionResult EnviarSolicitudAdopcion()
@@ -130,6 +132,12 @@ namespace ProyectoWebMVC.Controllers
                 ViewData["Mensaje"] = "No se pudo enviar la solicitud";
                 return View();
             }
+        }
+        [HttpGet]
+        public async Task<IActionResult> Publicaciones() 
+        {
+            var publicaciones = await _proyectoWebMVCContext.Publicaciones.ToListAsync(); 
+            return View(publicaciones); 
         }
 
         public IActionResult Privacy()
