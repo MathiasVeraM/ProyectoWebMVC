@@ -15,7 +15,7 @@ namespace ProyectoWebMVC.Data
         }
         public DbSet<ProyectoWebMVC.Models.Usuario> Usuario { get; set; }
         public DbSet<ProyectoWebMVC.Models.Solicitud> Solicitudes { get; set; }
-        public DbSet<Publicacion> Publicaciones { get; set; }
+        public DbSet<ProyectoWebMVC.Models.Publicacion> Publicaciones { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,8 +48,26 @@ namespace ProyectoWebMVC.Data
                 tb.Property(col => col.Fecha).HasColumnType("DateTime");
             });
 
+            modelBuilder.Entity<Publicacion>(tb => {
+                tb.HasKey(col => col.Id);
+                tb.Property(col => col.Id)
+                .UseIdentityColumn()
+                .ValueGeneratedOnAdd();
+
+                tb.Property(col => col.Raza).HasMaxLength(25);
+                tb.Property(col => col.Sexo).HasMaxLength(10);
+                tb.Property(col => col.Edad).HasColumnType("int");
+                tb.Property(col => col.Peso).HasColumnType("float");
+                tb.Property(col => col.Foto).HasMaxLength(100);
+                tb.Property(col => col.Tamaño).HasMaxLength(100);
+                tb.Property(col => col.Esterilizacion).HasColumnType("bit");
+                tb.Property(col => col.Enfermedades).HasMaxLength(200);
+                tb.Property(col => col.Comportamiento).HasMaxLength(200);
+            });
+
             modelBuilder.Entity<Usuario>().ToTable("Usuarios");
             modelBuilder.Entity<Solicitud>().ToTable("Solicitudes");
+            modelBuilder.Entity<Publicacion>().ToTable("Publicaciones");
         }
 
         public Usuario ValidarUsuario(string _correo, string _clave)

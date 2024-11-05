@@ -5,7 +5,7 @@
     min-height: 100vh;
 }
 
-#Ingresar {
+#Publicar {
     background: #374e1d;
     color: white;
     border-color: #374e1d;
@@ -15,25 +15,28 @@
 
 .custom-box {
     background-color: #84bc48;
-    padding: 30px 30px;
+    padding: 20px; 
     border-radius: 15px;
     box-shadow: 0px 4px 8px #3a362b;
     margin-top: 10px;
     margin-bottom: 125px;
-   
+    width: 80%; 
+    max-width: 800px;
+    margin-left: auto; 
+    margin-right: auto; 
 }
 
 .image-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
-    margin-right: 250px;
+    margin-top: 30px;
+    margin-right: 30px;
     margin-bottom: 0px;
 }
 
 .image-container img {
-    max-width: 80%; 
+    max-width: 90%; 
     height: auto;
     margin-bottom: 15px;
 }
