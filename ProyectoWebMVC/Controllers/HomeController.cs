@@ -139,6 +139,7 @@ namespace ProyectoWebMVC.Controllers
             var publicaciones = await _proyectoWebMVCContext.Publicaciones.ToListAsync(); 
             return View(publicaciones); 
         }
+        
 
         public IActionResult Privacy()
         {
