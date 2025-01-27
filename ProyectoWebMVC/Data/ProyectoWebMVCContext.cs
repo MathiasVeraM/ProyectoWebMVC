@@ -32,6 +32,7 @@ namespace ProyectoWebMVC.Data
                 tb.Property(col => col.Correo).HasMaxLength(50);
                 tb.Property(col => col.Clave).HasMaxLength(25);
             });
+           
 
             modelBuilder.Entity<Solicitud>(tb => {
                 tb.HasKey(col => col.IdSolicitud);

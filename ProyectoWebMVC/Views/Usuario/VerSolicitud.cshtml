@@ -1,0 +1,18 @@
+﻿@model ProyectoWebMVC.Models.Solicitud
+@{
+    ViewData["Title"] = "Detalle de Solicitud";
+}
+
+<div class="container">
+    <h2>Detalle de la Solicitud</h2>
+    <p><strong>ID:</strong> @Model.IdSolicitud</p>
+    <p><strong>Nombre:</strong> @Model.Nombre</p>
+    <p><strong>Cédula:</strong> @Model.Cedula</p>
+    <p><strong>Edad:</strong> @Model.Edad</p>
+    <p><strong>Lugar de Residencia:</strong> @Model.LugarResidencia</p>
+    <p><strong>Ingresos:</strong> @Model.Ingresos</p>
+    <p><strong>Ambiente Familiar:</strong> @Model.AmbienteFamiliar</p>
+    <p><strong>Fecha:</strong> @Model.Fecha.ToString("dd/MM/yyyy")</p>
+    <p><strong>Estado:</strong> @Model.Estado</p>
+    <a asp-controller="Home" asp-action="Perfil" class="btn btn-secondary">Regresar al Perfil</a>
+</div>

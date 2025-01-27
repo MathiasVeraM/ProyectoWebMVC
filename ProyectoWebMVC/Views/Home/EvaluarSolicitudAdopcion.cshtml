@@ -31,6 +31,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+             </th>
             <th></th>
         </tr>
     </thead>
@@ -59,6 +62,22 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Fecha)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <form method="post" action="@Url.Action("AprobarSolicitud", "Home")">
+                            <input type="hidden" name="id" value="@item.IdSolicitud" />
+                            <button type="submit" class="btn btn-success">Aprobar</button>
+                        </form>
+                        <form method="post" action="@Url.Action("RechazarSolicitud", "Home")">
+                            <input type="hidden" name="id" value="@item.IdSolicitud" />
+                            <button type="submit" class="btn btn-danger">Rechazar</button>
+                        </form>
+                    </td>
+                }
             </tr>
         }
     </tbody>

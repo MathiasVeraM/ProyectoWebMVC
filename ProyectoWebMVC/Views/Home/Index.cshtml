@@ -44,11 +44,17 @@
                             <li class="list-group-item"><strong>Esterilización:</strong> @publicacion.Esterilizacion</li>
                             <li class="list-group-item"><strong>Enfermedades:</strong> @publicacion.Enfermedades</li>
                             <li class="list-group-item"><strong>Comportamiento:</strong> @publicacion.Comportamiento</li>
-                        </ul>
-                           
-                            
-                        </div>
+                        </ul>       
+                    </div>
                 </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="@Url.Action("EditarPublicacion", "Home", new { id = publicacion.Id })" class="btn btn-primary">Editar</a>
+                        <form method="post" action="@Url.Action("EliminarPublicacion", "Home")" style="display:inline;">
+                            <input type="hidden" name="id" value="@publicacion.Id" />
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    }
             </div>
         }
          </div>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoWebMVC.Data;
 
@@ -11,9 +12,11 @@ using ProyectoWebMVC.Data;
 namespace ProyectoWebMVC.Migrations
 {
     [DbContext(typeof(ProyectoWebMVCContext))]
-    partial class ProyectoWebMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20250126235434_UpdateUsuarioFields")]
+    partial class UpdateUsuarioFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,10 +94,6 @@ namespace ProyectoWebMVC.Migrations
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Correo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Edad")
                         .HasColumnType("int");

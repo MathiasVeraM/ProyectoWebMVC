@@ -1,0 +1,43 @@
+﻿@model ProyectoWebMVC.Models.Publicacion
+
+@{
+    ViewData["Title"] = "Editar Publicación";
+}
+
+<h1>Editar Publicación</h1>
+
+<form asp-action="EditarPublicacion" method="post">
+    <div>
+        <label for="Raza">Raza</label>
+        <input asp-for="Raza" />
+    </div>
+    <div>
+        <label for="Sexo">Sexo</label>
+        <input asp-for="Sexo" />
+    </div>
+    <div>
+        <label for="Edad">Edad</label>
+        <input asp-for="Edad" />
+    </div>
+    <div>
+        <label for="Peso">Peso</label>
+        <input asp-for="Peso" />
+    </div>
+    <div>
+        <label for="Tamaño">Tamaño</label>
+        <input asp-for="Tamaño" />
+    </div>
+    <div>
+        <label for="Esterilizacion">Esterilización</label>
+        <input asp-for="Esterilizacion" />
+    </div>
+    <div>
+        <label for="Enfermedades">Enfermedades</label>
+        <input asp-for="Enfermedades" />
+    </div>
+    <div>
+        <label for="Comportamiento">Comportamiento</label>
+        <input asp-for="Comportamiento" />
+    </div>
+    <button type="submit">Guardar</button>
+</form>

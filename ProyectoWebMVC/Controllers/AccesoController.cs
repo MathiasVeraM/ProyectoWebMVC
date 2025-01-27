@@ -63,35 +63,29 @@ namespace ProyectoWebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(Login modelo)
         {
-            Usuario? usuario_encontrado = await _proyectoWebMVCContext.Usuario.Where(u=>u.Correo == modelo.Correo && u.Clave == modelo.Clave).FirstOrDefaultAsync();
-            
-            if(usuario_encontrado == null)
+            Usuario usuario_encontrado = await _proyectoWebMVCContext.Usuario
+                .Where(u => u.Correo == modelo.Correo && u.Clave == modelo.Clave)
+                .FirstOrDefaultAsync();
+
+            if (usuario_encontrado == null)
             {
-                ViewData["Mensaje"] = "No se encontro el usuario";
+                ViewData["Mensaje"] = "No se encontró el usuario";
                 return View();
             }
 
-            List<Claim> claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Email, usuario_encontrado.Correo),
-            };
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Email, usuario_encontrado.Correo),
+        new Claim(ClaimTypes.Role, usuario_encontrado.Correo == "admin@prueba.com" ? "Admin" : "Usuario")
+    };
 
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var properties = new AuthenticationProperties { AllowRefresh = true };
 
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            AuthenticationProperties properties = new AuthenticationProperties()
-            {
-                AllowRefresh = true,
-            };
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                properties
-                );
-
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), properties);
             return RedirectToAction("Index", "Home");
-
         }
+
 
         public async Task<IActionResult> Logout()
         {

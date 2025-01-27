@@ -10,5 +10,7 @@
         public int Ingresos { get; set; }
         public required string AmbienteFamiliar { get; set; }
         public DateTime Fecha { get; set; }
+        public string Estado { get; set; } = "Pendiente";
+        public string Correo { get; set; }
     }
 }

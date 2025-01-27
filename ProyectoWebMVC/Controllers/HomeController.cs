@@ -39,7 +39,8 @@ namespace ProyectoWebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> EnviarSolicitudAdopcion(Solicitud modelo)
         {
-            if(modelo == null)
+            modelo.Estado = "Pendiente";
+            if (modelo == null)
             {
                 ViewData["Mensaje"] = "No se pudo enviar la solicitud";
             }
@@ -68,7 +69,25 @@ namespace ProyectoWebMVC.Controllers
                 return View();
             }
         }
-        
+
+        [Authorize] 
+        [HttpGet]
+        public async Task<IActionResult> VerSolicitud(int id)
+        {
+            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var solicitud = await _proyectoWebMVCContext.Solicitudes
+                .FirstOrDefaultAsync(s => s.IdSolicitud == id && s.Correo == userEmail);
+
+            if (solicitud == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return View(solicitud);
+        }
+
 
 
         [Authorize(Policy = "OnlySpecificUser")]
@@ -133,13 +152,127 @@ namespace ProyectoWebMVC.Controllers
                 return View();
             }
         }
-        [HttpGet]
-        public async Task<IActionResult> Publicaciones() 
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> EliminarPublicacion(int id)
         {
-            var publicaciones = await _proyectoWebMVCContext.Publicaciones.ToListAsync(); 
-            return View(publicaciones); 
+            var publicacion = await _proyectoWebMVCContext.Publicaciones.FindAsync(id);
+            if (publicacion != null)
+            {
+                _proyectoWebMVCContext.Publicaciones.Remove(publicacion);
+                await _proyectoWebMVCContext.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
         }
-        
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> EditarPublicacion(int id)
+        {
+            var publicacion = await _proyectoWebMVCContext.Publicaciones.FindAsync(id);
+            if (publicacion == null)
+            {
+                return NotFound();
+            }
+            return View(publicacion);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> EditarPublicacion(Publicacion modelo)
+        {
+            var publicacion = await _proyectoWebMVCContext.Publicaciones.FindAsync(modelo.Id);
+            if (publicacion == null)
+            {
+                return NotFound();
+            }
+
+            publicacion.Raza = modelo.Raza;
+            publicacion.Sexo = modelo.Sexo;
+            publicacion.Edad = modelo.Edad;
+            publicacion.Peso = modelo.Peso;
+            publicacion.Tamaño = modelo.Tamaño;
+            publicacion.Esterilizacion = modelo.Esterilizacion;
+            publicacion.Enfermedades = modelo.Enfermedades;
+            publicacion.Comportamiento = modelo.Comportamiento;
+
+            if (modelo.FotoArchivo != null && modelo.FotoArchivo.Length > 0)
+            {
+                var fileName = Path.GetFileName(modelo.FotoArchivo.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas", fileName);
+
+                if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas")))
+                {
+                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Subidas"));
+                }
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await modelo.FotoArchivo.CopyToAsync(stream);
+                }
+
+                publicacion.Foto = fileName; // Actualiza la foto
+            }
+
+            await _proyectoWebMVCContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+
+        [Authorize(Policy = "OnlySpecificUser")]
+        [HttpPost]
+        public async Task<IActionResult> AprobarSolicitud(int id)
+        {
+            var solicitud = await _proyectoWebMVCContext.Solicitudes.FindAsync(id);
+            if (solicitud != null)
+            {
+                solicitud.Estado = "Aprobada";
+                await _proyectoWebMVCContext.SaveChangesAsync();
+            }
+
+            return RedirectToAction("EvaluarSolicitudAdopcion");
+        }
+
+        [Authorize(Policy = "OnlySpecificUser")]
+        [HttpPost]
+        public async Task<IActionResult> RechazarSolicitud(int id)
+        {
+            var solicitud = await _proyectoWebMVCContext.Solicitudes.FindAsync(id);
+            if (solicitud != null)
+            {
+                solicitud.Estado = "Rechazada";
+                await _proyectoWebMVCContext.SaveChangesAsync();
+            }
+
+            return RedirectToAction("EvaluarSolicitudAdopcion");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EliminarPerfil()
+        {
+            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var usuario = await _proyectoWebMVCContext.Usuario.FirstOrDefaultAsync(u => u.Correo == userEmail);
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            // Elimina todas las solicitudes asociadas
+            var solicitudes = _proyectoWebMVCContext.Solicitudes.Where(s => s.Correo == userEmail);
+            _proyectoWebMVCContext.Solicitudes.RemoveRange(solicitudes);
+
+            // Elimina el usuario
+            _proyectoWebMVCContext.Usuario.Remove(usuario);
+            await _proyectoWebMVCContext.SaveChangesAsync();
+
+            // Cierra sesión y redirige a la página de login
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Acceso");
+        }
 
         public IActionResult Privacy()
         {
