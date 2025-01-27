@@ -34,6 +34,7 @@ namespace ProyectoWebMVC.Controllers
                 .ToListAsync();
 
             ViewBag.Solicitudes = solicitudes;
+            ViewBag.UserPhoto = usuario.FotoPerfil;
             return View(usuario);
         }
 

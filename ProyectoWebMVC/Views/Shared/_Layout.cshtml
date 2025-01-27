@@ -25,23 +25,15 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1 justify-content-center">
-                        @if (User.IsInRole("Usuario"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Usuario" asp-action="Perfil">
-                                    <i class="fas fa-user-circle fa-2x"></i>
-                                </a>
-                            </li>
-                        }
+
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a asp-controller="Usuario" asp-action="Perfil" class="nav-link text-white" title="Perfil">
-                                <img src="~/Uploads/@User.Claims.FirstOrDefault(c => c.Type == "FotoPerfilPath")?.Value"
-                                     alt="Perfil"
-                                     style="width: 40px; height: 40px; border-radius: 50%;">
-                                Perfil
+                            <a asp-controller="Usuario" asp-action="Perfil" title="Perfil">
+                                <img src="~/Uploads/@ViewBag.UserPhoto" alt="Perfil" style="width: 40px; height: 40px; border-radius: 50%;">
                             </a>
+
                         }
+
 
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index" title="Inicio">

@@ -4,6 +4,13 @@
 }
 <div class="container">
     <h2>Perfil de Usuario</h2>
+    @if (!string.IsNullOrEmpty(Model.FotoPerfilPath))
+    {
+        <div class="text-center">
+            <img src="~/Uploads/@Model.FotoPerfilPath" alt="Foto de Perfil" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+        </div>
+    }
+
     <h3>@Model.Nombre</h3>
     <p><strong>Correo:</strong> @Model.Correo</p>
     <p><strong>Solicitudes de adopción enviadas:</strong> @ViewBag.Solicitudes.Count</p>
@@ -16,10 +23,7 @@
                 <li>
                     <strong>Solicitud:</strong> Solicitud @solicitud.IdSolicitud -
                     Estado: @solicitud.Estado
-                    <form asp-controller="Home" asp-action="VerSolicitud" method="get">
-                        <input type="hidden" name="id" value="@solicitud.IdSolicitud" />
-                        <button type="submit" class="btn btn-secondary btn-sm">Visualizar</button>
-                    </form>
+                   
                 </li>
             }
         </ul>

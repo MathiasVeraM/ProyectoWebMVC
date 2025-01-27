@@ -70,24 +70,7 @@ namespace ProyectoWebMVC.Controllers
             }
         }
 
-        [Authorize] 
-        [HttpGet]
-        public async Task<IActionResult> VerSolicitud(int id)
-        {
-            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var solicitud = await _proyectoWebMVCContext.Solicitudes
-                .FirstOrDefaultAsync(s => s.IdSolicitud == id && s.Correo == userEmail);
-
-            if (solicitud == null)
-            {
-                return NotFound();
-            }
-
-
-
-            return View(solicitud);
-        }
-
+        
 
 
         [Authorize(Policy = "OnlySpecificUser")]
